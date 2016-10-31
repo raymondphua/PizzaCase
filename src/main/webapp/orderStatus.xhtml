@@ -24,7 +24,8 @@
         <h:outputText value="Order status: "/>
         <h:outputLabel id="orderStatus" value="#{order.status}" />
 
-        <p:poll interval="5" listener="#{order.updateStatus}" update="orderStatus"/>
+        <p:progressBar id="orderProgression" widgetVar="statusProgress" value="#{order.statusProgress}"/>
+        <p:poll interval="5" listener="#{order.updateStatus}" update="orderStatus orderProgression"/>
     </h:form>
 
 </h:body>

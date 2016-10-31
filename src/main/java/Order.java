@@ -14,21 +14,37 @@ public class Order implements Serializable {
 
     private int orderNr;
     private String status;//Status status;
+    private double statusProgress;
 
     public Order() {
         Random random = new Random();
         orderNr = random.nextInt(100);
-        status = Status.PREPARING.toString();
+        status = "Processing...";
     }
 
     public void updateStatus() {
-        if (status == null) {
+        int statusSize = Status.values().length;
+        double progressPercentage = 100.0 / statusSize;
+
+        if (status.equals("Processing...")) {
             this.status = Status.PREPARING.toString();
+            statusProgress = progressPercentage * 1;
         } else if (status.equals(Status.PREPARING.toString())) {
             this.status = Status.DELIVERING.toString();
+            statusProgress = progressPercentage * 2;
         } else if (status.equals(Status.DELIVERING.toString())) {
             this.status = Status.COMPLETED.toString();
+            statusProgress = progressPercentage * 3;
         }
+    }
+
+    public void setStatusProgress(double statusProgress) {
+        this.statusProgress = statusProgress;
+    }
+    
+    public double getStatusProgress() {
+        
+        return statusProgress;
     }
 
     public void setOrderNr(int orderNr) {
