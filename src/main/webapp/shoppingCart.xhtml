@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+    <title>Phua's, where delicious pizza is made</title>
+    <h:outputStylesheet library="css" name="styles.css" />
+</h:head>
+
+<h:body>
+    <h1>Products in shopping cart: </h1>
+    <h:form>
+        <h:dataTable value="#{shoppingCart.orderedProducts}"
+                     var="pizza"
+                     styleClass="productTable"
+                     headerClass="productTableHeader"
+                     rowClasses="productTableOddRow,productTableEvenRow"
+                     border="2">
+
+            <h:column>
+                <f:facet name="header">
+                    Product
+                </f:facet>
+                <h:outputLabel value="#{pizza.name}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    Description
+                </f:facet>
+                <h:outputLabel value="#{pizza.description}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    Amount
+                </f:facet>
+                <h:outputLabel value="#{pizza.amount}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    remove/add
+                </f:facet>
+                <b:commandButton look="warning" value="-" action="#{shoppingCart.removeProductFromCart(pizza)}"/>
+                <b:commandButton look="warning" value="+" action="#{shoppingCart.addProductToCart(pizza)}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    Price
+                </f:facet>
+                <h:outputLabel value="#{pizza.price}"/>
+            </h:column>
+
+        </h:dataTable>
+
+        <p></p>
+
+        <h:outputLabel value="full price: #{shoppingCart.totalPrice}"/>
+
+        <h:form>
+            <b:commandButton value="Next" action="userInfo"/>
+        </h:form>
+    </h:form>
+</h:body>
+
+</html>

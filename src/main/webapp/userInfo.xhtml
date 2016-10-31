@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+    <title>Phua's, where delicious pizza is made</title>
+    <h:outputStylesheet library="css" name="styles.css" />
+</h:head>
+
+<h:body>
+    <h1>Please fill in your info: </h1>
+
+    <h:form>
+        <h:panelGrid columns="2" cellpadding="5">
+            <h:outputText value="Name:"/>
+            <b:inputText value="#{shoppingCart.customer.name}"/>
+
+            <h:outputText value="Email:"/>
+            <b:inputText value="#{shoppingCart.customer.email}"/>
+
+            <h:outputText value="Phonenumber:"/>
+            <b:inputText value="#{shoppingCart.customer.phoneNumber}"/>
+
+            <h:outputText value="Street:"/>
+            <b:inputText value="#{shoppingCart.customer.street}"/>
+
+            <h:outputText value="House nr:"/>
+            <b:inputText value="#{shoppingCart.customer.houseNr}"/>
+
+            <h:outputText value="Zippal code:"/>
+            <b:inputText value="#{shoppingCart.customer.zip}"/>
+
+            <h:outputText value="City:"/>
+            <b:inputText value="#{shoppingCart.customer.city}"/>
+        </h:panelGrid>
+
+        <b:commandButton value="Next" action="orderSummary"/>
+    </h:form>
+</h:body>
+</html>
