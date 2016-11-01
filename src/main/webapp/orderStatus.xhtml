@@ -16,16 +16,16 @@
     <h1>Thanks for ordering at Phua's, follow your order status below!</h1>
 
     <h:form>
-        <h:outputText value="Order nr: " />
-        <h:outputLabel value="#{order.orderNr}"/>
+        <h:outputText value="domain.Order nr: " />
+        <h:outputLabel value="#{shoppingCart.id}"/>
 
         <p></p>
 
-        <h:outputText value="Order status: "/>
-        <h:outputLabel id="orderStatus" value="#{order.status}" />
+        <h:outputText value="domain.Order status: "/>
+        <h:outputLabel id="orderStatus" value="#{shoppingCart.status}" />
 
-        <p:progressBar id="orderProgression" widgetVar="statusProgress" value="#{order.statusProgress}"/>
-        <p:poll interval="5" listener="#{order.updateStatus}" update="orderStatus orderProgression"/>
+        <p:progressBar id="orderProgression" widgetVar="statusProgress" value="#{shoppingCart.statusProgress}"/>
+        <p:poll interval="5" listener="#{shoppingCart.updateStatus}" update="orderStatus orderProgression"/>
     </h:form>
 
 </h:body>

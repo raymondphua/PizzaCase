@@ -1,3 +1,5 @@
+package domain;
+
 import enums.Status;
 
 import javax.faces.view.ViewScoped;

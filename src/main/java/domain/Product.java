@@ -1,10 +1,24 @@
+package domain;
+
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.persistence.*;
 
 /**
  * Created by Raymond Phua on 27-10-2016.
  */
+
+
+@Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="PRODUCT_TYPE")
 public abstract class Product {
+
+    @Id
+    @Getter
+    @Setter
+    protected int id;
 
     @Getter
     @Setter

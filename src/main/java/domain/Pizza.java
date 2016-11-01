@@ -1,6 +1,10 @@
+package domain;
+
+import lombok.NoArgsConstructor;
 
 import javax.faces.bean.RequestScoped;
 import javax.inject.Named;
+import javax.persistence.Entity;
 import java.io.Serializable;
 
 /**
@@ -8,9 +12,12 @@ import java.io.Serializable;
  */
 @Named
 @RequestScoped
+@Entity
+@NoArgsConstructor
 public class Pizza extends Product implements Serializable {
 
-    public Pizza(String name, String description, double defaultPrice) {
+    public Pizza(int id, String name, String description, double defaultPrice) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.defaultPrice = defaultPrice;
