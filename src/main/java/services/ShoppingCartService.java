@@ -1,6 +1,8 @@
 package services;
 
 import domain.Customer;
+import domain.OrderItem;
+import domain.Product;
 import domain.ShoppingCart;
 
 import javax.persistence.EntityManager;
@@ -18,7 +20,7 @@ public class ShoppingCartService implements DefaultService<ShoppingCart> {
     private EntityManager em = emf.createEntityManager();
 
     @Override
-    public ShoppingCart find(int id) {
+    public ShoppingCart find(long id) {
         return em.find(ShoppingCart.class, id);
     }
 
@@ -29,15 +31,20 @@ public class ShoppingCartService implements DefaultService<ShoppingCart> {
     }
 
     @Override
-    public void create(ShoppingCart shoppingCart) {
+    public ShoppingCart create(ShoppingCart shoppingCart) {
         em.getTransaction().begin();
         em.persist(shoppingCart);
         em.getTransaction().commit();
+
+        return shoppingCart;
     }
 
     @Override
-    public void update(ShoppingCart shoppingCart) {
-
+    public void update(ShoppingCart newCart) {
+        ShoppingCart oldCart = em.find(ShoppingCart.class, newCart.getId());
+        em.getTransaction().begin();
+        updateCart(oldCart, newCart);
+        em.getTransaction().commit();
     }
 
     @Override
@@ -51,7 +58,29 @@ public class ShoppingCartService implements DefaultService<ShoppingCart> {
 
         em.getTransaction().begin();
         cart.setCustomer(customer1);
+        customer1.addOrder(order);
         em.getTransaction().commit();
 
+    }
+
+    public List<ShoppingCart> findOrdersFromCustomer(long id) {
+        return em.createNamedQuery("findOrdersFromCustomer", ShoppingCart.class)
+                .setParameter("customerId", id)
+                .getResultList();
+    }
+
+    public List<ShoppingCart> findOrdersWithStatus(String status) {
+        return em.createNamedQuery("findOrdersWithStatus", ShoppingCart.class)
+                .setParameter("status", status)
+                .getResultList();
+    }
+
+    private void updateCart(ShoppingCart oldCart, ShoppingCart newCart) {
+        oldCart.setCustomer(newCart.getCustomer());
+        oldCart.setStatusProgress(newCart.getStatusProgress()); 
+        oldCart.setStatus(newCart.getStatus());
+        oldCart.setTotalPrice(newCart.getTotalPrice());
+        oldCart.setAmountInCart(newCart.getAmountInCart());
+        oldCart.setOrderedItems(newCart.getOrderedItems());
     }
 }

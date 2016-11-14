@@ -17,25 +17,25 @@
     <h:form>
         <h:panelGrid columns="2" cellpadding="5">
             <h:outputText value="Name:"/>
-            <b:inputText value="#{shoppingCart.customer.name}"/>
+            <b:inputText value="#{shoppingCartBean.customer.name}"/>
 
             <h:outputText value="Email:"/>
-            <b:inputText value="#{shoppingCart.customer.email}"/>
+            <b:inputText value="#{shoppingCartBean.customer.email}"/>
 
             <h:outputText value="Phonenumber:"/>
-            <b:inputText value="#{shoppingCart.customer.phoneNumber}"/>
+            <b:inputText value="#{shoppingCartBean.customer.phoneNumber}"/>
 
             <h:outputText value="Street:"/>
-            <b:inputText value="#{shoppingCart.customer.street}"/>
+            <b:inputText value="#{shoppingCartBean.customer.street}"/>
 
             <h:outputText value="House nr:"/>
-            <b:inputText value="#{shoppingCart.customer.houseNr}"/>
+            <b:inputText value="#{shoppingCartBean.customer.houseNr}"/>
 
             <h:outputText value="Zippal code:"/>
-            <b:inputText value="#{shoppingCart.customer.zip}"/>
+            <b:inputText value="#{shoppingCartBean.customer.zip}"/>
 
             <h:outputText value="City:"/>
-            <b:inputText value="#{shoppingCart.customer.city}"/>
+            <b:inputText value="#{shoppingCartBean.customer.city}"/>
         </h:panelGrid>
 
         <b:commandButton value="Next" action="orderSummary"/>

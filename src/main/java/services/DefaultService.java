@@ -7,9 +7,9 @@ import java.util.List;
  */
 public interface DefaultService<T> {
 
-    T find(int id);
+    T find(long id);
     List<T> findAll();
-    void create(T t);
+    T create(T t);
     void update(T t);
     void delete(T t);
 }

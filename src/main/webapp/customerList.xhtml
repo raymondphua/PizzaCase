@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://java.sun.com/jsf/html">
+
+<h:head>
+    <title>Phua's, where delicious pizza is made</title>
+    <h:outputStylesheet library="css" name="styles.css" />
+</h:head>
+
+<h1>Customer List at Phua's</h1>
+
+<p></p>
+
+<h3>Statistics</h3>
+<h:form>
+    <h:dataTable id="customers"
+                 value="#{adminBean.customerList}"
+                 var="customer"
+                 styleClass="productTable"
+                 headerClass="productTableHeader"
+                 rowClasses="productTableOddRow,productTableEvenRow"
+                 border="2">
+
+        <h:column>
+            <f:facet name="header">
+                Name
+            </f:facet>
+            <h:outputLabel value="#{customer.name}"/>
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">
+                Email
+            </f:facet>
+            <h:outputLabel value="#{customer.email}"/>
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">
+                Number of Orders
+            </f:facet>
+            <h:outputLabel value="#{customer.orderSize}"/>
+        </h:column>
+
+        <h:column>
+            <f:facet name="header"/>
+            <p:commandLink value="Show Orders" action="#{adminBean.findAllOrdersFromCustomer(customer.id)}"/>
+        </h:column>
+
+    </h:dataTable>
+</h:form>
+</html>

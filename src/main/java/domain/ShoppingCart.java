@@ -2,8 +2,13 @@ package domain;
 
 import enums.Status;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
+import services.CustomerService;
+import services.ShoppingCartService;
 
+import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.persistence.*;
@@ -16,91 +21,58 @@ import java.util.Random;
  * Created by Raymond Phua on 27-10-2016.
  */
 @Named
-@SessionScoped
+//@SessionScoped
 @Data
 @Entity
+@Stateful
+@ToString(exclude = "orderedItems")
+@NamedQueries({
+        @NamedQuery(name="findOrdersFromCustomer",
+                query="SELECT sc " +
+                        "FROM Customer c, ShoppingCart sc " +
+                        "WHERE sc.customer.id = :customerId " +
+                        "GROUP BY sc"),
+        @NamedQuery(name="findOrdersWithStatus",
+                query="SELECT sc " +
+                        "FROM ShoppingCart sc " +
+                        "WHERE sc.status = :status")
+})
 public class ShoppingCart implements Serializable {
 
     @Id
-    private int id;
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private long id;
 
     @ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name="CUSTOMER_ID")
     private Customer customer;
 
-    //@OneToMany(mappedBy="shoppingcart")
-    //private Collection<Product> orderedProducts;
+//    @ManyToMany(targetEntity=Product.class)
+//    private Collection<Product> orderedProducts;
+
+    @OneToMany(mappedBy="shoppingCart", cascade = CascadeType.PERSIST)
+    private Collection<OrderItem> orderedItems;
 
     private int amountInCart;
     private String status;
     private double statusProgress;
-
-    @Setter
     private double totalPrice;
 
-    public ShoppingCart() { }
-//    public ShoppingCart() {
-//        orderedProducts = new ArrayList<>();
-//        amountInCart = 0;
-//        customer = new Customer();
-//        Random random = new Random();
-//        id = random.nextInt(100);
-//        status = "Processing...";
-//    }
-//
-//    public void addProductToCart(Product product) {
-//        if (orderedProducts.contains(product)) {
-//            orderedProducts.forEach(p -> {
-//                if (p.equals(product)) {
-//                    p.incrementAmount();
-//                }
-//            });
-//        } else {
-//            product.incrementAmount();
-//            orderedProducts.add(product);
-//        }
-//        amountInCart++;
-//    }
-//
-//    public void removeProductFromCart(Product product) {
-//        if (orderedProducts.contains(product)) {
-//            orderedProducts.forEach(p -> {
-//                if (p.equals(product)) {
-//                    p.decrementAmount();
-//                }
-//            });
-//        }
-//
-//        if (product.getAmount() == 0) {
-//            orderedProducts.remove(product);
-//        }
-//
-//        amountInCart--;
-//    }
-//
-//    public int getShoppingCartSize() {
-//        return amountInCart;
-//    }
-//
-//    public double getTotalPrice() {
-//        double price = orderedProducts.stream().mapToDouble(Product::getPrice).sum();
-//
-//        return price;
-//    }
+    public ShoppingCart() {
+        this(0, 0,"Processing...",0d,0d);
+        //customer = new Customer();
+    }
 
-    public void updateStatus() {
-        int statusSize = Status.values().length;
-        double progressPercentage = 100.0 / statusSize;
+    public ShoppingCart(long id, int amountInCart, String status, double statusProgress, double totalPrice) {
+        this.id = id;
+        this.amountInCart = amountInCart;
+        this.status = status;
+        this.statusProgress = statusProgress;
+        this.totalPrice = totalPrice;
+        orderedItems = new ArrayList<>();
+    }
 
-        if (status.equals("Processing...")) {
-            this.status = Status.PREPARING.toString();
-            statusProgress = progressPercentage * 1;
-        } else if (status.equals(Status.PREPARING.toString())) {
-            this.status = Status.DELIVERING.toString();
-            statusProgress = progressPercentage * 2;
-        } else if (status.equals(Status.DELIVERING.toString())) {
-            this.status = Status.COMPLETED.toString();
-            statusProgress = progressPercentage * 3;
-        }
+    public void addToCart(OrderItem item) {
+        orderedItems.add(item);
+        item.setShoppingCart(this);
     }
 }

@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <h:head>
+        <title>Phua's, where delicious pizza is made</title>
+        <h:outputStylesheet library="css" name="styles.css" />
+    </h:head>
+
+    <h1>Admin page at Phua's</h1>
+
+    <p></p>
+
+    <h3>Statistics</h3>
+    <h:form>
+        <b:commandButton value="All Customers" action="#{adminBean.findAllCustomers}"/>
+        <b:commandButton value="All Orders" action="#{adminBean.findAllOrders}"/>
+        <b:commandButton value="All products" action="#{adminBean.findAllProducts}"/>
+        <b:commandButton value="All orders with pizzas"/>
+        <b:commandButton value="All orders with status 'completed'"/>
+        <b:commandButton value="All orders with status 'delivering'"/>
+        <b:commandButton value="All orders with price above €20"/>
+        <b:commandButton value="All orders with pizzas"/>
+    </h:form>
+</html>

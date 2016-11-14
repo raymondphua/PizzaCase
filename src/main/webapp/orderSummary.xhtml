@@ -12,36 +12,36 @@
 </h:head>
 
 <h:body>
-    <h1>domain.Order Summary</h1>
+    <h1>Order Summary</h1>
 
     <h:panelGrid columns="2" cellpadding="5">
         <h:outputText value="Name: "/>
-        <h:outputLabel value="#{shoppingCart.customer.name}"/>
+        <h:outputLabel value="#{shoppingCartBean.customer.name}"/>
 
         <h:outputText value="Email:"/>
-        <h:outputLabel value="#{shoppingCart.customer.email}"/>
+        <h:outputLabel value="#{shoppingCartBean.customer.email}"/>
 
         <h:outputText value="Phonenumber:"/>
-        <h:outputLabel value="#{shoppingCart.customer.phoneNumber}"/>
+        <h:outputLabel value="#{shoppingCartBean.customer.phoneNumber}"/>
 
         <h:outputText value="Street:"/>
-        <h:outputLabel value="#{shoppingCart.customer.street}"/>
+        <h:outputLabel value="#{shoppingCartBean.customer.street}"/>
 
         <h:outputText value="House nr:"/>
-        <h:outputLabel value="#{shoppingCart.customer.houseNr}"/>
+        <h:outputLabel value="#{shoppingCartBean.customer.houseNr}"/>
 
         <h:outputText value="Zippal code:"/>
-        <h:outputLabel value="#{shoppingCart.customer.zip}"/>
+        <h:outputLabel value="#{shoppingCartBean.customer.zip}"/>
 
         <h:outputText value="City:"/>
-        <h:outputLabel value="#{shoppingCart.customer.city}"/>
+        <h:outputLabel value="#{shoppingCartBean.customer.city}"/>
     </h:panelGrid>
 
     <p></p>
 
     <h:form>
-        <h:dataTable value="#{shoppingCart.orderedProducts}"
-                     var="pizza"
+        <h:dataTable value="#{shoppingCartBean.orderedItems}"
+                     var="item"
                      styleClass="productTable"
                      headerClass="productTableHeader"
                      rowClasses="productTableOddRow,productTableEvenRow"
@@ -49,42 +49,42 @@
 
             <h:column>
                 <f:facet name="header">
-                    domain.Product
+                    Product
                 </f:facet>
-                <h:outputLabel value="#{pizza.name}"/>
+                <h:outputLabel value="#{item.product.name}"/>
             </h:column>
 
             <h:column>
                 <f:facet name="header">
                     Description
                 </f:facet>
-                <h:outputLabel value="#{pizza.description}"/>
+                <h:outputLabel value="#{item.product.description}"/>
             </h:column>
 
             <h:column>
                 <f:facet name="header">
                     Amount
                 </f:facet>
-                <h:outputLabel value="#{pizza.amount}"/>
+                <h:outputLabel value="#{item.amount}"/>
             </h:column>
 
             <h:column>
                 <f:facet name="header">
                     Price
                 </f:facet>
-                <h:outputLabel value="#{pizza.price}"/>
+                <h:outputLabel value="#{item.price}"/>
             </h:column>
 
         </h:dataTable>
 
         <p></p>
 
-        <h:outputLabel value="full price: #{shoppingCart.totalPrice}"/>
+        <h:outputLabel value="full price: #{shoppingCartBean.totalPrice}"/>
 
     </h:form>
 
     <h:form>
-        <b:commandButton value="Pay" action="orderStatus"/>
+        <b:commandButton value="Pay" action="#{shoppingCartBean.pay}"/>
     </h:form>
 </h:body>
 </html>

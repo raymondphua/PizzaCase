@@ -2,10 +2,13 @@ package domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import javax.enterprise.context.RequestScoped;
+import javax.ejb.Stateless;
+import javax.faces.bean.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -13,13 +16,26 @@ import java.util.Collection;
  * Created by Raymond Phua on 27-10-2016.
  */
 @Named
-@RequestScoped
+//@RequestScoped
+//@NoArgsConstructor
+@Stateless
 @Data
+@ToString(exclude="orders")
 @Entity
-public class Customer {
+@NamedQueries({
+        @NamedQuery(name="findCustomerFromId",
+                query="SELECT c " +
+                        "FROM Customer c " +
+                        "WHERE c.id = :customerId"),
+        @NamedQuery(name="findAllCustomers",
+                query="SELECT c " +
+                        "FROM Customer c")
+})
+public class Customer implements Serializable {
 
     @Id
-    private int id;
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private long id;
     private String name;
     private String email;
     private int phoneNumber;
@@ -28,16 +44,14 @@ public class Customer {
     private String zip;
     private String city;
 
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="customer")
-    //@JoinColumn(name="SHOPPINGCART_ID",referencedColumnName="CUSTOMER_ID")
-    private Collection<ShoppingCart> orders;
+    @OneToMany(fetch=FetchType.EAGER, mappedBy="customer")
+    private Collection<ShoppingCart> orders;// = new ArrayList<>();
 
     public Customer() {
-        orders = new ArrayList<>();
+        this.orders = new ArrayList<>();
     }
 
-    public Customer(int id,
-                    String name,
+    public Customer(String name,
                     String email,
                     int phoneNumber,
                     String street,
@@ -56,5 +70,11 @@ public class Customer {
         orders = new ArrayList<>();
     }
 
+    public int getOrderSize() {
+        return orders.size();
+    }
 
+    public void addOrder(ShoppingCart order) {
+        this.orders.add(order);
+    }
 }

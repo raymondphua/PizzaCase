@@ -5,6 +5,7 @@ import domain.Product;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import java.util.List;
 
 /**
@@ -16,20 +17,23 @@ public class ProductService implements DefaultService<Product> {
     private EntityManager em = emf.createEntityManager();
 
     @Override
-    public Product find(int id) {
+    public Product find(long id) {
         return em.find(Product.class, id);
     }
 
     @Override
     public List<Product> findAll() {
-        return null;
+        Query query = em.createQuery("SELECT p FROM Product p");
+        return query.getResultList();
     }
 
     @Override
-    public void create(Product product) {
+    public Product create(Product product) {
         em.getTransaction().begin();
         em.persist(product);
         em.getTransaction().commit();
+
+        return product;
     }
 
     @Override

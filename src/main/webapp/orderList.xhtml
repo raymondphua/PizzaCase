@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Phua's, where delicious pizza is made</title>
+    <h:outputStylesheet library="css" name="styles.css" />
+</h:head>
+
+<h1>Order List at Phua's</h1>
+
+<p></p>
+
+<h3>Statistics</h3>
+<h:form>
+
+    <!--<p:commandButton value="Show all orders with status 'completed'" action="#{adminBean}"/>-->
+    <p:outputLabel for="status" value="Order status: "/>
+    <p:selectOneMenu id="status" value="#{adminBean.status}">
+        <p:ajax event="change" listener="#{adminBean.onStatusChangeListener}" update="orders"/>
+        <f:selectItem itemLabel="All" itemValue="" noSelectionOption="true"/>
+        <f:selectItems value="#{adminBean.possibleStatus}"/>
+    </p:selectOneMenu>
+    <h:dataTable id="orders"
+                 value="#{adminBean.orderList}"
+                 var="order"
+                 styleClass="productTable"
+                 headerClass="productTableHeader"
+                 rowClasses="productTableOddRow,productTableEvenRow"
+                 border="2">
+
+        <h:column>
+            <f:facet name="header">
+                Order Nr
+            </f:facet>
+            <h:outputLabel value="#{order.id}"/>
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">
+                Amount in Cart
+            </f:facet>
+            <h:outputLabel value="#{order.amountInCart}"/>
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">
+                Status
+            </f:facet>
+            <h:outputLabel value="#{order.status}"/>
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">
+                Total Price
+            </f:facet>
+            <h:outputLabel value="#{order.totalPrice}"/>
+        </h:column>
+
+        <h:column>
+            <f:facet name="header" value="Customer"/>
+            <p:commandLink value="#{order.customer.name}" action="#{adminBean.findSingleCustomer(order.customer.id)}"/>
+        </h:column>
+
+    </h:dataTable>
+</h:form>
+</html>

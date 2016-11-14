@@ -14,8 +14,8 @@
 <h:body>
     <h1>Products in shopping cart: </h1>
     <h:form>
-        <h:dataTable value="#{shoppingCart.orderedProducts}"
-                     var="pizza"
+        <h:dataTable value="#{shoppingCartBean.orderedItems}"
+                     var="item"
                      styleClass="productTable"
                      headerClass="productTableHeader"
                      rowClasses="productTableOddRow,productTableEvenRow"
@@ -23,45 +23,45 @@
 
             <h:column>
                 <f:facet name="header">
-                    domain.Product
+                    Product
                 </f:facet>
-                <h:outputLabel value="#{pizza.name}"/>
+                <h:outputLabel value="#{item.product.name}"/>
             </h:column>
 
             <h:column>
                 <f:facet name="header">
                     Description
                 </f:facet>
-                <h:outputLabel value="#{pizza.description}"/>
+                <h:outputLabel value="#{item.product.description}"/>
             </h:column>
 
             <h:column>
                 <f:facet name="header">
                     Amount
                 </f:facet>
-                <h:outputLabel value="#{pizza.amount}"/>
+                <h:outputLabel value="#{item.amount}"/>
             </h:column>
 
             <h:column>
                 <f:facet name="header">
                     remove/add
                 </f:facet>
-                <b:commandButton look="warning" value="-" action="#{shoppingCart.removeProductFromCart(pizza)}"/>
-                <b:commandButton look="warning" value="+" action="#{shoppingCart.addProductToCart(pizza)}"/>
+                <b:commandButton look="warning" value="-" action="#{shoppingCartBean.removeProductFromCart(item.product)}"/>
+                <b:commandButton look="warning" value="+" action="#{shoppingCartBean.addProductToCart(item.product)}"/>
             </h:column>
 
             <h:column>
                 <f:facet name="header">
                     Price
                 </f:facet>
-                <h:outputLabel value="#{pizza.price}"/>
+                <h:outputLabel value="#{item.price}"/>
             </h:column>
 
         </h:dataTable>
 
         <p></p>
 
-        <h:outputLabel value="full price: #{shoppingCart.totalPrice}"/>
+        <h:outputLabel value="full price: #{shoppingCartBean.totalPrice}"/>
 
         <h:form>
             <b:commandButton value="Next" action="userInfo"/>

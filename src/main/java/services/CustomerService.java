@@ -17,21 +17,23 @@ public class CustomerService implements DefaultService<Customer> {
     private EntityManager em = emf.createEntityManager();
 
     @Override
-    public Customer find(int id) {
+    public Customer find(long id) {
         return em.find(Customer.class, id);
     }
 
     @Override
     public List<Customer> findAll() {
-        Query query = em.createQuery("SELECT c FROM Customer c");
+        Query query = em.createNamedQuery("findAllCustomers", Customer.class);
         return query.getResultList();
     }
 
     @Override
-    public void create(Customer customer) {
+    public Customer create(Customer customer) {
         em.getTransaction().begin();
         em.persist(customer);
         em.getTransaction().commit();
+
+        return customer;
     }
 
     @Override

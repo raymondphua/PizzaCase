@@ -2,8 +2,11 @@ package domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.*;
+import java.util.Collection;
 
 /**
  * Created by Raymond Phua on 27-10-2016.
@@ -11,14 +14,18 @@ import javax.persistence.*;
 
 
 @Entity
+@ToString(exclude="orderItem")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="PRODUCT_TYPE")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlSeeAlso({Pizza.class})
 public abstract class Product {
 
     @Id
     @Getter
     @Setter
-    protected int id;
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    protected long id;
 
     @Getter
     @Setter
@@ -26,28 +33,19 @@ public abstract class Product {
     @Getter
     @Setter
     protected String description;
+
+    @Getter
     @Setter
     protected double price;
-    @Getter
-    @Setter
-    protected int amount;
 
     @Getter
     @Setter
-    protected double defaultPrice;
+    @OneToOne(mappedBy="product")
+    @XmlTransient
+    protected OrderItem orderItem;
 
-    public double getPrice() {
-        if (amount != 0) {
-            price = defaultPrice * amount;
-        }
-        return price;
-    }
-
-    public void incrementAmount() {
-        amount++;
-    }
-
-    public void decrementAmount() {
-        amount--;
-    }
+//    @Getter
+//    @Setter
+//    @ManyToMany(targetEntity=ShoppingCart.class, mappedBy="orderedProducts")
+//    protected Collection<ShoppingCart> orders;
 }
