@@ -13,6 +13,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Logger;
@@ -32,7 +33,7 @@ public class PizzasBean implements Serializable {
     private EntityManager em;
 
     public List<Product> getPizzaList() {
-        Query query = em.createQuery("SELECT p FROM Product p", Product.class);
+        TypedQuery<Product> query = em.createNamedQuery("findAllProducts", Product.class);
         return query.getResultList();
     }
 

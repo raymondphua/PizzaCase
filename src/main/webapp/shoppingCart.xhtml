@@ -14,7 +14,7 @@
 <h:body>
     <h1>Products in shopping cart: </h1>
     <h:form>
-        <h:dataTable value="#{shoppingCartBean.orderedItems}"
+        <h:dataTable value="#{shoppingCartController.orderedItems}"
                      var="item"
                      styleClass="productTable"
                      headerClass="productTableHeader"
@@ -46,8 +46,8 @@
                 <f:facet name="header">
                     remove/add
                 </f:facet>
-                <b:commandButton look="warning" value="-" action="#{shoppingCartBean.removeProductFromCart(item.product)}"/>
-                <b:commandButton look="warning" value="+" action="#{shoppingCartBean.addProductToCart(item.product)}"/>
+                <b:commandButton look="warning" value="-" action="#{shoppingCartController.removeProductFromCart(item.product)}"/>
+                <b:commandButton look="warning" value="+" action="#{shoppingCartController.addProductToCart(item.product)}"/>
             </h:column>
 
             <h:column>
@@ -61,7 +61,7 @@
 
         <p></p>
 
-        <h:outputLabel value="full price: #{shoppingCartBean.totalPrice}"/>
+        <h:outputLabel value="full price: #{shoppingCartController.totalPrice}"/>
 
         <h:form>
             <b:commandButton value="Next" action="userInfo"/>

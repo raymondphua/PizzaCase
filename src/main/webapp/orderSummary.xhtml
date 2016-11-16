@@ -16,31 +16,31 @@
 
     <h:panelGrid columns="2" cellpadding="5">
         <h:outputText value="Name: "/>
-        <h:outputLabel value="#{shoppingCartBean.customer.name}"/>
+        <h:outputLabel value="#{shoppingCartController.customer.name}"/>
 
         <h:outputText value="Email:"/>
-        <h:outputLabel value="#{shoppingCartBean.customer.email}"/>
+        <h:outputLabel value="#{shoppingCartController.customer.email}"/>
 
         <h:outputText value="Phonenumber:"/>
-        <h:outputLabel value="#{shoppingCartBean.customer.phoneNumber}"/>
+        <h:outputLabel value="#{shoppingCartController.customer.phoneNumber}"/>
 
         <h:outputText value="Street:"/>
-        <h:outputLabel value="#{shoppingCartBean.customer.street}"/>
+        <h:outputLabel value="#{shoppingCartController.customer.street}"/>
 
         <h:outputText value="House nr:"/>
-        <h:outputLabel value="#{shoppingCartBean.customer.houseNr}"/>
+        <h:outputLabel value="#{shoppingCartController.customer.houseNr}"/>
 
         <h:outputText value="Zippal code:"/>
-        <h:outputLabel value="#{shoppingCartBean.customer.zip}"/>
+        <h:outputLabel value="#{shoppingCartController.customer.zip}"/>
 
         <h:outputText value="City:"/>
-        <h:outputLabel value="#{shoppingCartBean.customer.city}"/>
+        <h:outputLabel value="#{shoppingCartController.customer.city}"/>
     </h:panelGrid>
 
     <p></p>
 
     <h:form>
-        <h:dataTable value="#{shoppingCartBean.orderedItems}"
+        <h:dataTable value="#{shoppingCartController.orderedItems}"
                      var="item"
                      styleClass="productTable"
                      headerClass="productTableHeader"
@@ -79,12 +79,12 @@
 
         <p></p>
 
-        <h:outputLabel value="full price: #{shoppingCartBean.totalPrice}"/>
+        <h:outputLabel value="full price: #{shoppingCartController.totalPrice}"/>
 
     </h:form>
 
     <h:form>
-        <b:commandButton value="Pay" action="#{shoppingCartBean.pay}"/>
+        <b:commandButton value="Pay" action="#{shoppingCartController.pay}"/>
     </h:form>
 </h:body>
 </html>

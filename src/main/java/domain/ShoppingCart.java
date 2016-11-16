@@ -8,7 +8,6 @@ import lombok.ToString;
 import services.CustomerService;
 import services.ShoppingCartService;
 
-import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.persistence.*;
@@ -20,11 +19,10 @@ import java.util.Random;
 /**
  * Created by Raymond Phua on 27-10-2016.
  */
-@Named
+//@Named
 //@SessionScoped
 @Data
 @Entity
-@Stateful
 @ToString(exclude = "orderedItems")
 @NamedQueries({
         @NamedQuery(name="findOrdersFromCustomer",

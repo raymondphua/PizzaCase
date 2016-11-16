@@ -12,9 +12,7 @@ import java.io.Serializable;
 /**
  * Created by Raymond Phua on 27-10-2016.
  */
-@Named
-//@RequestScoped
-@Stateless
+
 @Entity
 @NoArgsConstructor
 @XmlRootElement(name="Pizza")

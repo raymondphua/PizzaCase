@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.ejb.Stateless;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.persistence.*;
@@ -15,8 +14,8 @@ import java.io.Serializable;
  */
 @Entity
 @Data
-@Named
-@Stateless
+//@Named
+//@ViewScoped
 @NoArgsConstructor
 public class OrderItem implements Serializable {
 
@@ -26,7 +25,7 @@ public class OrderItem implements Serializable {
 
     @OneToOne
     private Product product;
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.MERGE)
     private ShoppingCart shoppingCart;
     private int amount;
     private double price;

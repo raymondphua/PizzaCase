@@ -19,6 +19,11 @@ import java.util.Collection;
 @DiscriminatorColumn(name="PRODUCT_TYPE")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlSeeAlso({Pizza.class})
+@NamedQueries({
+        @NamedQuery(name="findAllProducts",
+                query="SELECT p " +
+                        "FROM Product p")
+})
 public abstract class Product {
 
     @Id

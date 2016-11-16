@@ -18,7 +18,7 @@
     <!-- SHOPPING CART ICON-->
     <h:form>
         <b:icon name="shopping-cart" />
-        <b:badge value="#{shoppingCartBean.amountInCart}" />
+        <b:badge value="#{shoppingCartController.amountInCart}" />
         <b:commandButton value="Check out" look="success" action="shoppingCart"/>
     </h:form>
     <p></p>
@@ -56,7 +56,7 @@
                 <f:facet name="header">
                     Add
                 </f:facet>
-                <b:commandButton value="add to cart" action="#{shoppingCartBean.addProductToCart(pizza)}" look="info"/>
+                <b:commandButton value="add to cart" action="#{shoppingCartController.addProductToCart(pizza)}" look="info"/>
             </h:column>
         </h:dataTable>
 

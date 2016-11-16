@@ -17,16 +17,16 @@
 
     <h:form>
         <h:outputText value="Order nr: " />
-        <h:outputLabel id="test" value="#{shoppingCartBean.id}"/>
+        <h:outputLabel id="test" value="#{shoppingCartController.id}"/>
 
         <p></p>
 
         <h:outputText value="Order status: "/>
-        <h:outputLabel id="orderStatus" value="#{shoppingCartBean.status}" />
+        <h:outputLabel id="orderStatus" value="#{shoppingCartController.status}" />
 
-        <p:progressBar id="orderProgression" widgetVar="statusProgress" value="#{shoppingCartBean.statusProgress}"/>
-        <p:poll interval="5" listener="#{shoppingCartBean.updateStatus}" update="orderStatus orderProgression"/>
-        <b:commandButton value="Home" action="#{shoppingCartBean.destroy}"/>
+        <p:progressBar id="orderProgression" widgetVar="statusProgress" value="#{shoppingCartController.statusProgress}"/>
+        <p:poll interval="5" listener="#{shoppingCartController.updateStatus}" update="orderStatus orderProgression"/>
+        <b:commandButton value="Home" action="#{shoppingCartController.destroy}"/>
     </h:form>
 
 </h:body>

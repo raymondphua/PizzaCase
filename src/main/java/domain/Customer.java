@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.ejb.Stateless;
 import javax.faces.bean.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.*;
@@ -16,9 +15,8 @@ import java.util.Collection;
  * Created by Raymond Phua on 27-10-2016.
  */
 @Named
-//@RequestScoped
+@RequestScoped
 //@NoArgsConstructor
-@Stateless
 @Data
 @ToString(exclude="orders")
 @Entity
